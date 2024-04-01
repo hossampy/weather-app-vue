@@ -25,6 +25,7 @@
 </template>
 
 <script setup>
+defineEmits(["close-modal"]);
 
 defineProps({
   modalActive: {

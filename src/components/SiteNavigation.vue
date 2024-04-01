@@ -14,14 +14,14 @@
         <i
           class="fa-solid fa-circle-info text-xl hover:text-weather-secondary duration-150 cursor-pointer"
          
-        ></i>
+        @click="toggleModal"></i>
         <i
           class="fa-solid fa-plus text-xl hover:text-weather-secondary duration-150 cursor-pointer"
           
         ></i>
       </div>
 
-      <BaseModal
+      <BaseModal :modalActive="modalActive" @close-modal="toggleModal"
        
       >
         <div class="text-black">
@@ -59,18 +59,16 @@
   </header>
 </template>
 
-<script>
-import { defineComponent } from 'vue'; // Import defineComponent from Vue 3
-import BaseModal from './BaseModal.vue'; // Import the BaseModal component
+<script setup>
+import { ref } from "vue";
+import { RouterLink, useRoute, useRouter } from "vue-router";
+import BaseModal from "./BaseModal.vue";
 
-export default defineComponent({
-  components: {
-    BaseModal // Register the BaseModal component
-  },
-  setup() {
-    // Your setup logic goes here
-    return {};
-  }
-});
+const modalActive = ref(null);
+const toggleModal = ()=>{
+    modalActive.value = !modalActive.value;
+}
+
+
 </script>
 
