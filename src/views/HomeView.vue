@@ -2,49 +2,35 @@
 
   <main class="container text-white">
     <div class="pt-4 mb-8 relative  items-center my-28   " @z-modal="closeme">
-      <input type="text" 
-      v-model="searchQuery"
-      @input="getSearchResults"
-      placeholder="Search for a city or state"
-        class="  py-6 px-5 text-3xl w-full bg-transparent border-b focus:border-weather-secondary focus:outline-none focus:shadow-[0px_1px_0_0_#004E71] placeholder-white items-center mx-auto my-auto -z-0 "
-        
-      />
-     <ul
-        class="absolute  bg-purple-700 text-white w-full shadow-md py-2 my-10 px-1 top-[66px] bg-opacity-50"
-        v-if="mapboxSearchResults"
-      >
+      <input type="text" v-model="searchQuery" @input="getSearchResults" placeholder="Search for a city or state"
+        class="  py-6 px-5 text-3xl w-full bg-transparent border-b focus:border-weather-secondary focus:outline-none focus:shadow-[0px_1px_0_0_#004E71] placeholder-white items-center mx-auto my-auto -z-0 " />
+      <ul class="absolute  bg-purple-700 text-white w-full shadow-md py-2 my-10 px-1 top-[66px] bg-opacity-50"
+        v-if="mapboxSearchResults">
         <p class="py-2" v-if="searchError">
           Sorry, something went wrong, please try again.
         </p>
-        <p
-          class="py-2"
-          v-if="!searchError && mapboxSearchResults.length === 0"
-        >
+        <p class="py-2" v-if="!searchError && mapboxSearchResults.length === 0">
           No results match your query, try a different term.
         </p>
         <template v-else>
-          <li
-            v-for="searchResult in mapboxSearchResults"
-            :key="searchResult.id"
-            class="py-4  cursor-pointer capitaliz border-b-2 "
-            @click="previewCity(searchResult)"
-          >
+          <li v-for="searchResult in mapboxSearchResults" :key="searchResult.id"
+            class="py-4  cursor-pointer capitaliz border-b-2 " @click="previewCity(searchResult)">
             {{ searchResult.place_name }}
           </li>
         </template>
       </ul>
     </div>
     <div class="flex flex-col gap-4">
-       <Suspense>
-        <CityList />
+      <Suspense>
+        <CityList /> 
         <template #fallback>
-          <p> loding</p>
+         
         </template>
       </Suspense>
     </div>
-    
+
   </main>
-  
+
 </template>
 
 <script setup> 
@@ -53,6 +39,8 @@
 import axios from 'axios';
 import { useRoute, useRouter } from 'vue-router';
 import { ref } from 'vue';
+import CityList from "../components/CityList.vue";
+
 const queryTimeout = ref(null);
 const mapboxAPIKey =
   "pk.eyJ1Ijoiam9obmtvbWFybmlja2kiLCJhIjoiY2t5NjFzODZvMHJkaDJ1bWx6OGVieGxreSJ9.IpojdT3U3NENknF6_WhR2Q";
